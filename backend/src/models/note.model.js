@@ -16,8 +16,18 @@ const noteModel = (sequelize) => {
       allowNull: false,
     },
     category: {
-      type: DataTypes.ENUM("To-Do", "Work", "Technologies", "Documentation"),
+      type: DataTypes.ENUM(
+        "To-Do",
+        "Work",
+        "Technologies",
+        "Documentation",
+        "Challenge"
+      ),
       allowNull: true,
+    },
+    archived: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
     },
   });
 };
