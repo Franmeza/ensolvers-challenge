@@ -4,7 +4,7 @@ import { RiDeleteBin6Line, RiEditBoxLine } from "react-icons/ri";
 
 function NoteCard({ note }) {
   return (
-    <div className="bg-zinc-800 max-w-sm w-full p-5 rounded-md">
+    <div className=" max-w-sm w-full p-5 rounded-md border border-gray-400 bg-white">
       <h1 className="text-2xl font-bold">{note.title}</h1>
 
       <div className="my-3 text-gray-500 ">{note.description}</div>

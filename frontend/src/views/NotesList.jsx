@@ -8,9 +8,9 @@ function NotesList() {
   useEffect(() => {
     getNotes();
   }, []);
-  console.log(notes);
+
   return (
-    <div>
+    <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-2">
       {notes.map((note) => (
         <NoteCard key={note.id} note={note} />
       ))}

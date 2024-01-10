@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import { getNotesRequest } from "../api/notes";
+import { getNotesRequest, createNoteRequest } from "../api/notes";
 
 const NoteContext = createContext();
 
@@ -20,8 +20,15 @@ export function NoteProvider({ children }) {
     }
   };
 
+  const createNote = async (note) => {
+    try {
+      const res = await createNoteRequest(note);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
-    <NoteContext.Provider value={{ notes, getNotes }}>
+    <NoteContext.Provider value={{ notes, getNotes, createNote }}>
       {children}
     </NoteContext.Provider>
   );

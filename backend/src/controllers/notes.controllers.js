@@ -3,7 +3,7 @@ import { Note } from "../db.js";
 export const createNotes = async (req, res) => {
   const { title, description, category } = req.body;
   try {
-    if (!title || !description || !category)
+    if (!title || !description)
       return res.status(400).json({ message: "Some information is missing" });
 
     const newNote = await Note.create({
