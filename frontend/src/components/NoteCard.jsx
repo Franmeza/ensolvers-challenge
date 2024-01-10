@@ -1,10 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { RiDeleteBin6Line, RiEditBoxLine } from "react-icons/ri";
 import { useNotes } from "../context/NotesContext";
 
 function NoteCard({ note }) {
-  const { deleteNote } = useNotes();
+  const { deleteNote, openModalToEdit } = useNotes();
 
   return (
     <div className=" max-w-sm w-full p-5 rounded-md border border-gray-400 bg-white">
@@ -17,9 +16,9 @@ function NoteCard({ note }) {
             <RiDeleteBin6Line />
           </button>
 
-          <Link to={`/notes/${note.id}`}>
+          <button onClick={() => openModalToEdit(note)}>
             <RiEditBoxLine />
-          </Link>
+          </button>
         </div>
         <select name="" id="">
           <option value="">Select Category</option>

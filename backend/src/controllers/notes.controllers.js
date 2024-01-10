@@ -47,6 +47,8 @@ export const getNote = async (req, res) => {
 export const updateNote = async (req, res) => {
   const { id } = req.params;
   const { title, description, category } = req.body;
+  console.log(id);
+  console.log(req.body);
   try {
     const note = await Note.findOne({
       where: {

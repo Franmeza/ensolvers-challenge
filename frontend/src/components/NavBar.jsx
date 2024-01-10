@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import { useNotes } from "../context/NotesContext";
 
-function NavBar({ openModal }) {
+function NavBar() {
+  const { openModal } = useNotes();
+
   return (
     <nav className="bg-white my-3 flex justify-between py-5 px-10 rounded-lg ">
       <Link to="/">

@@ -3,6 +3,8 @@ import {
   getNotesRequest,
   createNoteRequest,
   deleteNoteRequest,
+  updateNoteRequest,
+  getNoteRequest,
 } from "../api/notes";
 
 const NoteContext = createContext();
@@ -14,11 +16,24 @@ export const useNotes = () => {
 
 export function NoteProvider({ children }) {
   const [notes, setNotes] = useState([]);
+  const [editData, setEditData] = useState(null);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const getNotes = async () => {
     try {
       const res = await getNotesRequest();
       setNotes(res.data);
+      return res.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getNote = async (id) => {
+    console.log(id);
+    try {
+      const res = await getNoteRequest(id);
+      console.log(res);
     } catch (error) {
       console.log(error);
     }
@@ -27,6 +42,7 @@ export function NoteProvider({ children }) {
   const createNote = async (note) => {
     try {
       const res = await createNoteRequest(note);
+      setNotes([...notes, res.data]);
     } catch (error) {
       console.log(error);
     }
@@ -43,8 +59,45 @@ export function NoteProvider({ children }) {
     }
   };
 
+  const updateNote = async (id, note) => {
+    try {
+      await updateNoteRequest(id, note);
+      await getNotes();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const openModal = () => {
+    setModalIsOpen(true);
+    setEditData(null);
+  };
+
+  const openModalToEdit = (note) => {
+    setEditData(note);
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
+
   return (
-    <NoteContext.Provider value={{ notes, getNotes, createNote, deleteNote }}>
+    <NoteContext.Provider
+      value={{
+        notes,
+        getNotes,
+        createNote,
+        deleteNote,
+        updateNote,
+        openModal,
+        closeModal,
+        modalIsOpen,
+        getNote,
+        openModalToEdit,
+        editData,
+      }}
+    >
       {children}
     </NoteContext.Provider>
   );
