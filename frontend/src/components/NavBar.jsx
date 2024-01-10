@@ -11,8 +11,22 @@ function NavBar() {
       </Link>
       <ul className="flex gap-x-2 cursor-pointer">
         <li>
-          <Link to="/" className="bg-indigo-500 px-4 py-1 rounded-md ">
-            Notes
+          <Link to="/"> All Notes</Link>
+        </li>
+        <li>
+          <Link
+            to="/notes/archived"
+            className="bg-indigo-500 px-4 py-1 rounded-md "
+          >
+            Archived
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="/notes/active"
+            className="bg-indigo-500 px-4 py-1 rounded-md "
+          >
+            Active
           </Link>
         </li>
         <li onClick={() => openModal()}>Create Note</li>

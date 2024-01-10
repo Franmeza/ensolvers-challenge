@@ -5,6 +5,7 @@ import {
   deleteNoteRequest,
   updateNoteRequest,
   getNoteRequest,
+  archiveToggleRequest,
 } from "../api/notes";
 
 const NoteContext = createContext();
@@ -68,6 +69,14 @@ export function NoteProvider({ children }) {
     }
   };
 
+  const archivedToggle = async (id, archived) => {
+    try {
+      const res = await archiveToggleRequest(id, archived);
+      await getNotes();
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const openModal = () => {
     setModalIsOpen(true);
     setEditData(null);
@@ -96,6 +105,7 @@ export function NoteProvider({ children }) {
         getNote,
         openModalToEdit,
         editData,
+        archivedToggle,
       }}
     >
       {children}

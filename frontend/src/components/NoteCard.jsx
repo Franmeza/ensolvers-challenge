@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { RiDeleteBin6Line, RiEditBoxLine } from "react-icons/ri";
 import { useNotes } from "../context/NotesContext";
+import { RiArchiveLine } from "react-icons/ri";
 
 function NoteCard({ note }) {
-  const { deleteNote, openModalToEdit } = useNotes();
+  const { deleteNote, openModalToEdit, archivedToggle } = useNotes();
 
   return (
     <div className=" max-w-sm w-full p-5 rounded-md border border-gray-400 bg-white">
@@ -18,6 +19,11 @@ function NoteCard({ note }) {
 
           <button onClick={() => openModalToEdit(note)}>
             <RiEditBoxLine />
+          </button>
+          <button>
+            <RiArchiveLine
+              onClick={() => archivedToggle(note.id, !note.archived)}
+            />
           </button>
         </div>
         <select name="" id="">
