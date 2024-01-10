@@ -17,8 +17,7 @@ const noteModel = (sequelize) => {
     },
     category: {
       type: DataTypes.ENUM(
-        "To-Do",
-        "Work",
+        "Business",
         "Technologies",
         "Documentation",
         "Challenge"

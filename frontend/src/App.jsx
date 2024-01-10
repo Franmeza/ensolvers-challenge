@@ -1,14 +1,19 @@
 import { Route, Routes } from "react-router-dom";
-import NotesPage from "./views/NotesPage";
+import NotesList from "./views/NotesList";
 import NavBar from "./components/NavBar";
+import { NoteProvider } from "./context/NotesContext";
 
 function App() {
   return (
     <>
-      <NavBar />
-      <Routes>
-        <Route path="/" element={<NotesPage />} />
-      </Routes>
+      <NoteProvider>
+        <main className="container mx-auto">
+          <NavBar />
+          <Routes>
+            <Route path="/" element={<NotesList />} />
+          </Routes>
+        </main>
+      </NoteProvider>
     </>
   );
 }
