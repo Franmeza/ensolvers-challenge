@@ -49,7 +49,9 @@ function App() {
           <div className="max-w-lg w-full flex flex-col rounded-md">
             <div className="flex justify-between p-5 bg-teal-500">
               <h1 className="text-2xl font-bold">Add Note</h1>
-              <RiCloseLine size={30} />
+              <div onClick={closeModal} className="cursor-pointer">
+                <RiCloseLine size={30} />
+              </div>
             </div>
             <div className="p-5">
               <form onSubmit={onSubmit}>

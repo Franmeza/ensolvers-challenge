@@ -1,8 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { RiDeleteBin6Line, RiEditBoxLine } from "react-icons/ri";
+import { useNotes } from "../context/NotesContext";
 
 function NoteCard({ note }) {
+  const { deleteNote } = useNotes();
+
   return (
     <div className=" max-w-sm w-full p-5 rounded-md border border-gray-400 bg-white">
       <h1 className="text-2xl font-bold">{note.title}</h1>
@@ -10,7 +13,7 @@ function NoteCard({ note }) {
       <div className="my-3 text-gray-500 ">{note.description}</div>
       <div className="flex justify-between">
         <div className="flex gap-x-2 items-center">
-          <button>
+          <button onClick={() => deleteNote(note.id)}>
             <RiDeleteBin6Line />
           </button>
 
@@ -26,18 +29,6 @@ function NoteCard({ note }) {
           <option value="">Challenge</option>
         </select>
       </div>
-
-      {/* <details className="dropdown dropdown-end z-[1]">
-        <ul className="p-2 shadow menu dropdown-content z-[10] bg-base-100 rounded-box w-52">
-          <li>
-            <button name="miCuenta">Mi Cuenta</button>
-          </li>
-
-          <li>
-            <button name="logout">Cerrar Sesión</button>
-          </li>
-        </ul>
-      </details> */}
     </div>
   );
 }

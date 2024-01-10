@@ -20,7 +20,7 @@ export const createNotes = async (req, res) => {
 export const getNotes = async (req, res) => {
   try {
     const notes = await Note.findAll({
-      attributes: ["title", "description", "category", "archived"],
+      attributes: ["id", "title", "description", "category", "archived"],
     });
     res.status(200).json(notes);
   } catch (error) {
@@ -36,7 +36,7 @@ export const getNote = async (req, res) => {
         id: id,
       },
 
-      attributes: ["title", "description", "category", "archived"],
+      attributes: ["id", "title", "description", "category", "archived"],
     });
     res.status(200).json(note);
   } catch (error) {
