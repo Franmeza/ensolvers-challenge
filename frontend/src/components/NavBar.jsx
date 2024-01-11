@@ -9,16 +9,17 @@ function NavBar() {
       <Link to="/">
         <h1 className="text-2xl font-bold cursor-pointer"> Notes APP</h1>
       </Link>
-      <ul className="flex gap-x-2 cursor-pointer">
+
+      <ul className="flex items-center gap-x-2 cursor-pointer">
         <li>
-          <Link to="/"> All Notes</Link>
+          <Link to="/"> Business</Link>
         </li>
         <li>
           <Link
             to="/notes/archived"
             className="bg-indigo-500 px-4 py-1 rounded-md "
           >
-            Archived
+            Technologies
           </Link>
         </li>
         <li>
@@ -26,11 +27,19 @@ function NavBar() {
             to="/notes/active"
             className="bg-indigo-500 px-4 py-1 rounded-md "
           >
-            Active
+            Documentation
           </Link>
         </li>
-        <li onClick={() => openModal()}>Create Note</li>
+        <li>
+          <Link
+            to="/notes/active"
+            className="bg-indigo-500 px-4 py-1 rounded-md "
+          >
+            Challenge
+          </Link>
+        </li>
       </ul>
+      <div onClick={() => openModal()}>Create Note</div>
     </nav>
   );
 }

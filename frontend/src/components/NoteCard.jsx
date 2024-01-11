@@ -4,8 +4,12 @@ import { useNotes } from "../context/NotesContext";
 import { RiArchiveLine } from "react-icons/ri";
 
 function NoteCard({ note }) {
-  const { deleteNote, openModalToEdit, archivedToggle } = useNotes();
+  const { deleteNote, openModalToEdit, archivedToggle, updateNoteCategory } =
+    useNotes();
 
+  const handleChange = (e) => {
+    updateNoteCategory(note.id, e.target.value);
+  };
   return (
     <div className=" max-w-sm w-full p-5 rounded-md border border-gray-400 bg-white">
       <h1 className="text-2xl font-bold">{note.title}</h1>
@@ -26,12 +30,12 @@ function NoteCard({ note }) {
             />
           </button>
         </div>
-        <select name="" id="">
-          <option value="">Select Category</option>
-          <option value="">Business</option>
-          <option value="">Technologies</option>
-          <option value="">Documentation</option>
-          <option value="">Challenge</option>
+        <select value={note.category} name="" id="" onChange={handleChange}>
+          <option value=" ">Select Category</option>
+          <option value="Business">Business</option>
+          <option value="Technologies">Technologies</option>
+          <option value="Documentation">Documentation</option>
+          <option value="Challenge">Challenge</option>
         </select>
       </div>
     </div>

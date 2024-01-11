@@ -8,5 +8,8 @@ export const createNoteRequest = (data) => axios.post(`${URL}/notes/`, data);
 export const deleteNoteRequest = (id) => axios.delete(`${URL}/notes/${id}`);
 export const updateNoteRequest = (id, note) =>
   axios.put(`${URL}/notes/${id}`, note);
+export const updateNoteCategoryRequest = (id, category) => {
+  axios.patch(`${URL}/notes/category/${id}`, { category });
+};
 export const archiveToggleRequest = (id, archived) =>
   axios.patch(`${URL}/notes/${id}?archived=${archived}`);

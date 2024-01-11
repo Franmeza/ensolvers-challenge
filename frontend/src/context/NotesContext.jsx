@@ -4,6 +4,7 @@ import {
   createNoteRequest,
   deleteNoteRequest,
   updateNoteRequest,
+  updateNoteCategoryRequest,
   getNoteRequest,
   archiveToggleRequest,
 } from "../api/notes";
@@ -69,6 +70,16 @@ export function NoteProvider({ children }) {
     }
   };
 
+  const updateNoteCategory = async (id, category) => {
+    console.log(category);
+    try {
+      await updateNoteCategoryRequest(id, category);
+      await getNotes();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const archivedToggle = async (id, archived) => {
     try {
       const res = await archiveToggleRequest(id, archived);
@@ -106,6 +117,7 @@ export function NoteProvider({ children }) {
         openModalToEdit,
         editData,
         archivedToggle,
+        updateNoteCategory,
       }}
     >
       {children}

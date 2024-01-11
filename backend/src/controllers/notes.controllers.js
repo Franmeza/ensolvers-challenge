@@ -58,8 +58,31 @@ export const updateNote = async (req, res) => {
 
     if (!note) return res.status(404).json({ message: "Note not founded" });
 
-    note.title = title;
-    note.description = description;
+    note.title = title || note.title;
+    note.description = description || note.description;
+    note.category = category;
+    await note.save();
+
+    res.status(200).json(note);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const updateNoteCategory = async (req, res) => {
+  const { id } = req.params;
+  const { category } = req.body;
+  console.log(id);
+  console.log(req.body);
+  try {
+    const note = await Note.findOne({
+      where: {
+        id: id,
+      },
+    });
+
+    if (!note) return res.status(404).json({ message: "Note not founded" });
+
     note.category = category;
     await note.save();
 
