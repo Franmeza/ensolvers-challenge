@@ -1,6 +1,7 @@
 import express from "express";
 import morgan from "morgan";
 import noteRoutes from "./routes/notes.routes.js";
+import cors from "cors";
 
 const app = express();
 
