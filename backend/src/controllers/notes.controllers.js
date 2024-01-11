@@ -1,7 +1,7 @@
 import { Note } from "../db.js";
 
 export const createNotes = async (req, res) => {
-  const { title, description, category } = req.body;
+  const { title, description } = req.body;
   try {
     if (!title || !description)
       return res.status(400).json({ message: "Some information is missing" });
@@ -9,9 +9,8 @@ export const createNotes = async (req, res) => {
     const newNote = await Note.create({
       title,
       description,
-      category,
     });
-    res.status(200).json(newNote);
+    res.status(200).json({ message: "Note created succesfully", newNote });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -63,14 +62,14 @@ export const updateNote = async (req, res) => {
       },
     });
 
-    if (!note) return res.status(404).json({ message: "Note not founded" });
+    if (!note) return res.status(404).json({ message: "Note not found" });
 
     note.title = title || note.title;
     note.description = description || note.description;
     note.category = category;
     await note.save();
 
-    res.status(200).json(note);
+    res.status(200).json({ message: "Note succesfully updated!" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

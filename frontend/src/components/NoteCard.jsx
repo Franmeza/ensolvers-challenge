@@ -35,7 +35,7 @@ function NoteCard({ note }) {
             <RiEditBoxLine />
           </div>
           <div onClick={() => archivedToggle(note.id, !note.archived)}>
-            <RiArchiveLine />
+            <RiArchiveLine color={note.archived ? "ff0000" : null} />
           </div>
         </div>
         <select
@@ -45,7 +45,7 @@ function NoteCard({ note }) {
           id=""
           onChange={handleChange}
         >
-          <option value=" ">Select Category</option>
+          <option value="undefined">Select Category</option>
           <option value="Business">Business</option>
           <option value="Technologies">Technologies</option>
           <option value="Documentation">Documentation</option>

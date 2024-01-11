@@ -25,7 +25,12 @@ export function NoteProvider({ children }) {
   const getNotes = async () => {
     try {
       const res = await getNotesRequest();
-      setNotes(res.data);
+      const sortedNotes = res.data.sort((a, b) => {
+        // Puedes ajustar esta lógica de ordenamiento según tus necesidades
+        // Aquí se ordena por ID de manera ascendente
+        return a.id - b.id;
+      });
+      setNotes(sortedNotes);
     } catch (error) {
       console.log(error);
     }
@@ -44,7 +49,8 @@ export function NoteProvider({ children }) {
   const createNote = async (note) => {
     try {
       const res = await createNoteRequest(note);
-      setNotes([...notes, res.data]);
+      setNotes([...notes, res.data.newNote]);
+      return res.data.message;
     } catch (error) {
       console.log(error);
     }
@@ -63,8 +69,9 @@ export function NoteProvider({ children }) {
 
   const updateNote = async (id, note) => {
     try {
-      await updateNoteRequest(id, note);
+      const res = await updateNoteRequest(id, note);
       await getNotes();
+      return res.data.message;
     } catch (error) {
       console.log(error);
     }

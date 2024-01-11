@@ -3,11 +3,18 @@ import Modal from "react-modal";
 import { useNotes } from "../context/NotesContext";
 import { RiCloseLine } from "react-icons/ri";
 import { useEffect } from "react";
+import Swal from "sweetalert2";
 
 Modal.setAppElement("#root");
 
 function NotesForm() {
-  const { register, handleSubmit, setValue, reset } = useForm();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    reset,
+    formState: { errors },
+  } = useForm();
   const { createNote, closeModal, modalIsOpen, updateNote, editData } =
     useNotes();
 
@@ -22,13 +29,25 @@ function NotesForm() {
     }
   }, [editData, setValue]);
 
-  const onSubmit = handleSubmit((data) => {
+  const onSubmit = handleSubmit(async (data) => {
     if (editData) {
-      updateNote(editData.id, {
+      const res = await updateNote(editData.id, {
         ...data,
       });
+      Swal.fire({
+        icon: "success",
+        title: "Congratulations!",
+        text: res,
+        confirmButtonColor: "#6366f1",
+      });
     } else {
-      createNote(data);
+      const res = await createNote(data);
+      Swal.fire({
+        icon: "success",
+        title: "Congratulations!",
+        text: res,
+        confirmButtonColor: "#6366f1",
+      });
       reset();
     }
     closeModal();
@@ -48,24 +67,44 @@ function NotesForm() {
             <RiCloseLine size={30} />
           </div>
         </div>
-        <div className="p-5">
+        <div className=" max-w-md  w-full p-5">
           <form onSubmit={onSubmit}>
-            <label htmlFor="">Note Title</label>
+            <label htmlFor="note-title" className="font-bold">
+              Note Title
+            </label>
             <input
               className=" w-full my-2 rounded-md py-2 px-2 border border-gray-400"
               type="text"
-              {...register("title")}
+              {...register("title", {
+                required: {
+                  value: true,
+                  message: "Please enter note title",
+                },
+              })}
               autoFocus
             />
-            <label htmlFor="">Note Description</label>
+            {errors.title && (
+              <p className="text-red-500 ">{errors.title.message}</p>
+            )}
+            <label htmlFor="note-description" className="font-bold">
+              Note Description
+            </label>
 
             <textarea
               cols="30"
               rows="6"
               className="w-full my-2 rounded-md py-2 px-2 border border-gray-400 "
               type="text"
-              {...register("description")}
+              {...register("description", {
+                required: {
+                  value: true,
+                  message: "Please enter note description",
+                },
+              })}
             ></textarea>
+            {errors.description && (
+              <p className="text-red-500 ">{errors.description.message}</p>
+            )}
             <div>
               {editData ? (
                 <button
