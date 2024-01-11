@@ -1,16 +1,17 @@
 import axios from "axios";
 
-const URL = "http://localhost:3000/api/notes";
+const baseURL = import.meta.env.VITE_APP_API_URL;
 
-export const getNotesRequest = () => axios.get(`${URL}`);
+export const getNotesRequest = () => axios.get(`${baseURL}`);
 export const filterNotesRequest = (category) =>
-  axios.get(`${URL}?category=${category}`);
-export const getNoteRequest = (id) => axios.get(`${URL}/${id}`);
-export const createNoteRequest = (data) => axios.post(`${URL}`, data);
-export const deleteNoteRequest = (id) => axios.delete(`${URL}/${id}`);
-export const updateNoteRequest = (id, note) => axios.put(`${URL}/${id}`, note);
+  axios.get(`${baseURL}?category=${category}`);
+export const getNoteRequest = (id) => axios.get(`${baseURL}/${id}`);
+export const createNoteRequest = (data) => axios.post(`${baseURL}`, data);
+export const deleteNoteRequest = (id) => axios.delete(`${baseURL}/${id}`);
+export const updateNoteRequest = (id, note) =>
+  axios.put(`${baseURL}/${id}`, note);
 export const updateNoteCategoryRequest = (id, category) =>
-  axios.patch(`${URL}/category/${id}`, { category });
+  axios.patch(`${baseURL}/category/${id}`, { category });
 
 export const archiveToggleRequest = (id, archived) =>
-  axios.patch(`${URL}/${id}?archived=${archived}`);
+  axios.patch(`${baseURL}/${id}?archived=${archived}`);
