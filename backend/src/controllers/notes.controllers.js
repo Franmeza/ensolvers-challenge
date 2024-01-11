@@ -18,11 +18,18 @@ export const createNotes = async (req, res) => {
 };
 
 export const getNotes = async (req, res) => {
+  const { category } = req.query;
   try {
-    const notes = await Note.findAll({
-      attributes: ["id", "title", "description", "category", "archived"],
-    });
-    res.status(200).json(notes);
+    const result = !category
+      ? await Note.findAll({
+          attributes: ["id", "title", "description", "category", "archived"],
+        })
+      : await Note.findAll({
+          where: {
+            category: category,
+          },
+        });
+    res.status(200).json(result);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

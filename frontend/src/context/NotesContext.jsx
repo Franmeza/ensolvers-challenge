@@ -7,6 +7,7 @@ import {
   updateNoteCategoryRequest,
   getNoteRequest,
   archiveToggleRequest,
+  filterNotesRequest,
 } from "../api/notes";
 
 const NoteContext = createContext();
@@ -25,7 +26,6 @@ export function NoteProvider({ children }) {
     try {
       const res = await getNotesRequest();
       setNotes(res.data);
-      return res.data;
     } catch (error) {
       console.log(error);
     }
@@ -70,8 +70,15 @@ export function NoteProvider({ children }) {
     }
   };
 
+  const filterNotes = async (category) => {
+    try {
+      const res = await filterNotesRequest(category);
+      setNotes(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const updateNoteCategory = async (id, category) => {
-    console.log(category);
     try {
       await updateNoteCategoryRequest(id, category);
       await getNotes();
@@ -118,6 +125,7 @@ export function NoteProvider({ children }) {
         editData,
         archivedToggle,
         updateNoteCategory,
+        filterNotes,
       }}
     >
       {children}

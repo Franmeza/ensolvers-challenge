@@ -7,30 +7,44 @@ function NoteCard({ note }) {
   const { deleteNote, openModalToEdit, archivedToggle, updateNoteCategory } =
     useNotes();
 
+  const categoryColors = {
+    Business: "bg-yellow-200",
+    Technologies: "bg-green-300",
+    Documentation: "bg-blue-300",
+    Challenge: "bg-purple-300",
+  };
+
   const handleChange = (e) => {
     updateNoteCategory(note.id, e.target.value);
   };
+
   return (
-    <div className=" max-w-sm w-full p-5 rounded-md border border-gray-400 bg-white">
+    <div
+      className={`max-w-sm w-full p-5 rounded-md border border-gray-400 ${
+        categoryColors[note.category]
+      }`}
+    >
       <h1 className="text-2xl font-bold">{note.title}</h1>
-
-      <div className="my-3 text-gray-500 ">{note.description}</div>
+      <div className="my-3 text-gray-500">{note.description}</div>
       <div className="flex justify-between">
-        <div className="flex gap-x-2 items-center">
-          <button onClick={() => deleteNote(note.id)}>
+        <div className="flex gap-x-2 items-center cursor-pointer">
+          <div onClick={() => deleteNote(note.id)}>
             <RiDeleteBin6Line />
-          </button>
-
-          <button onClick={() => openModalToEdit(note)}>
+          </div>
+          <div onClick={() => openModalToEdit(note)}>
             <RiEditBoxLine />
-          </button>
-          <button>
-            <RiArchiveLine
-              onClick={() => archivedToggle(note.id, !note.archived)}
-            />
-          </button>
+          </div>
+          <div onClick={() => archivedToggle(note.id, !note.archived)}>
+            <RiArchiveLine />
+          </div>
         </div>
-        <select value={note.category} name="" id="" onChange={handleChange}>
+        <select
+          className="rounded-md px-2 py-1 bg-gray-100"
+          value={note.category}
+          name=""
+          id=""
+          onChange={handleChange}
+        >
           <option value=" ">Select Category</option>
           <option value="Business">Business</option>
           <option value="Technologies">Technologies</option>

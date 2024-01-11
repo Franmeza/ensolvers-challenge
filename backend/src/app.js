@@ -21,5 +21,5 @@ app.use((req, res, next) => {
 app.use(morgan("dev"));
 app.use(express.json());
 
-app.use("/api", noteRoutes);
+app.use("/api/notes", noteRoutes);
 export default app;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { useNotes } from "../context/NotesContext";
 import NoteCard from "../components/NoteCard";
 
@@ -14,6 +14,18 @@ function NotesList({ openModal }) {
     setFilter(e.target.value);
   };
 
+  const filteredNotes = useMemo(() => {
+    if (filter === "all-notes") {
+      return notes;
+    } else if (filter === "actives") {
+      return notes.filter((note) => !note.archived);
+    } else if (filter === "archived") {
+      return notes.filter((note) => note.archived);
+    }
+
+    return notes;
+  }, [filter, notes]);
+
   return (
     <div>
       <select
@@ -26,18 +38,9 @@ function NotesList({ openModal }) {
         <option value="archived">Archived</option>
       </select>
       <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-2">
-        {filter === "all-notes" &&
-          notes.map((note) => (
-            <NoteCard key={note.id} note={note} openModal={openModal} />
-          ))}
-        {filter === "actives" &&
-          notes
-            .filter((note) => note.archived === false)
-            .map((note) => <NoteCard key={note.id} note={note} />)}
-        {filter === "archived" &&
-          notes
-            .filter((note) => note.archived === true)
-            .map((note) => <NoteCard key={note.id} note={note} />)}
+        {filteredNotes.map((note) => (
+          <NoteCard key={note.id} note={note} openModal={openModal} />
+        ))}
       </div>
     </div>
   );
